@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CheckOut</title>
+    <link rel="stylesheet" href="checkout.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="form-container">
+      <h1>Check Out</h1>
+      <form id="tipout-form" onsubmit="handleSubmit(event)">
+        <div class="nice-form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your name"
+          />
+        </div>
+        <div class="nice-form-group">
+          <label for="date">Date</label>
+          <input type="date" id="date" name="date" />
+        </div>
+        <div class="nice-form-group">
+          <label for="net-sales">Net Sales</label>
+          <input
+            type="number"
+            id="net-sales"
+            name="net-sales"
+            placeholder="Enter amount"
+            oninput="calculateTipOuts()"
+          />
+        </div>
+        <div class="nice-form-group">
+          <label for="bar-tip-out">Bar Tip Out 1% </label>
+          <input
+            type="number"
+            id="bar-tip-out"
+            name="bar-tip-out"
+            placeholder="Enter amount"
+            readonly
+          />
+        </div>
+        <div class="nice-form-group">
+          <label for="porter-tip-out">Porter Tip Out 3% </label>
+          <input
+            type="number"
+            id="porter-tip-out"
+            name="porter-tip-out"
+            placeholder="Enter amount"
+            readonly
+          />
+        </div>
+        <div class="nice-form-group">
+          <label for="tip-out">Tip Out 1% </label>
+          <input
+            type="number"
+            id="tip-out"
+            name="tip-out"
+            placeholder="Enter amount"
+            readonly
+          />
+        </div>
+        <div class="nice-form-group">
+          <label for="security-tip-out">Security Tip Out 2% </label>
+          <input
+            type="number"
+            id="security-tip-out"
+            name="security-tip-out"
+            placeholder="Enter amount"
+            readonly
+          />
+        </div>
+        <div class="nice-form-group">
+          <label for="total-tipout">Total Tipout</label>
+          <input type="number" id="total-tipout" name="total-tipout" readonly />
+        </div>
+        <div class="nice-form-group">
+          <label for="total-cc-tips">Total CC Tips</label>
+          <input
+            type="number"
+            id="total-cc-tips"
+            name="total-cc-tips"
+            placeholder="Enter amount"
+            oninput="calculateTotalTips()"
+          />
+        </div>
+        <div class="nice-form-group">
+          <label for="total-cash-tips">Total Cash Tips</label>
+          <input
+            type="number"
+            id="total-cash-tips"
+            name="total-cash-tips"
+            placeholder="Enter amount"
+            oninput="calculateTotalTips()"
+          />
+        </div>
+        <div class="nice-form-group">
+          <label for="total-tips">Total Tips</label>
+          <input type="number" id="total-tips" name="total-tips" readonly />
+        </div>
+        <div class="form-group">
+          <label for="prebook-overgrat">Prebook Overgrat</label>
+          <input
+            type="number"
+            id="prebook-overgrat"
+            name="prebook-overgrat"
+            placeholder="Enter amount"
+            oninput="calculateTipPool()"
+          />
+        </div>
+        <div class="nice-form-group">
+          <label for="tip-pool">Tip Pool</label>
+          <input type="number" id="tip-pool" name="tip-pool" readonly />
+        </div>
+        <!-- Submit Button -->
+        <div class="nice-form-group">
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      function calculateTipOuts() {
+        const netSales =
+          parseFloat(document.getElementById("net-sales").value) || 0;
+
+        // Calculate each tip-out based on net sales
+        const barTipOut = netSales * 0.01;
+        const porterTipOut = netSales * 0.03;
+        const tipOut = netSales * 0.01;
+        const securityTipOut = netSales * 0.02;
+
+        // Update the tip-out fields
+        document.getElementById("bar-tip-out").value = barTipOut.toFixed(2);
+        document.getElementById("porter-tip-out").value =
+          porterTipOut.toFixed(2);
+        document.getElementById("tip-out").value = tipOut.toFixed(2);
+        document.getElementById("security-tip-out").value =
+          securityTipOut.toFixed(2);
+
+        // Recalculate total tipout and tip pool
+        calculateTotalTipout();
+        calculateTipPool();
+      }
+
+      function calculateTotalTipout() {
+        const barTipOut =
+          parseFloat(document.getElementById("bar-tip-out").value) || 0;
+        const porterTipOut =
+          parseFloat(document.getElementById("porter-tip-out").value) || 0;
+        const tipOut =
+          parseFloat(document.getElementById("tip-out").value) || 0;
+        const securityTipOut =
+          parseFloat(document.getElementById("security-tip-out").value) || 0;
+
+        const totalTipout = barTipOut + porterTipOut + tipOut + securityTipOut;
+        document.getElementById("total-tipout").value = totalTipout.toFixed(2);
+        calculateTipPool();
+      }
+
+      function calculateTotalTips() {
+        const totalCCTips =
+          parseFloat(document.getElementById("total-cc-tips").value) || 0;
+        const totalCashTips =
+          parseFloat(document.getElementById("total-cash-tips").value) || 0;
+
+        const totalTips = totalCCTips + totalCashTips;
+        document.getElementById("total-tips").value = totalTips.toFixed(2);
+        calculateTipPool();
+      }
+
+      function calculateTipPool() {
+        const totalTips =
+          parseFloat(document.getElementById("total-tips").value) || 0;
+        const totalTipout =
+          parseFloat(document.getElementById("total-tipout").value) || 0;
+        const prebookOvergrat =
+          parseFloat(document.getElementById("prebook-overgrat").value) || 0;
+
+        const tipPool = totalTips - totalTipout - prebookOvergrat;
+        document.getElementById("tip-pool").value = tipPool.toFixed(2);
+      }
+
+      function handleSubmit(event) {
+        event.preventDefault();
+        alert("Form submitted!");
+      }
+    </script>
+  </body>
+</html>
