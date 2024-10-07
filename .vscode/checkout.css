@@ -9,20 +9,49 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 120vh;
-  padding: 20px; /* Added padding to prevent cutting on small screens */
-  overflow-y: auto; /* Enable vertical scrolling if needed */
+  /* height: 120vh; */
+  width: 100%;
+  padding: 0;
+  padding-left: 1px;
+  padding-right: 1px;
+  padding-top: 0%;
+  overflow-y: scroll;
+  height: 150vh;
+}
+
+@media (max-width: 600px) {
+  body {
+    width: 100%;
+  }
+}
+
+@media (min-width: 601px) {
+  body {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  body {
+    width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  body {
+    width: 100%;
+  }
 }
 
 .form-container {
-  width: 120%;
+  width: 1000px;
   max-width: 45rem;
-  padding: 80px;
+  padding: 25px 30px 25px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  border: 0.5px solid #333; /* Gold border */
-  margin-top: 5rem; /* Additional margin for spacing on small screens */
+  border: 0.5px solid #333;
+  margin-top: 5rem;
 }
 
 h1 {
