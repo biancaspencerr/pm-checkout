@@ -96,7 +96,6 @@ input::placeholder {
 }
 
 input:focus {
-  /* border-color: #ffdf80;  */
   outline: none;
 }
 
