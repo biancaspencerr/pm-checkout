@@ -87,7 +87,7 @@ input[type="date"] {
   border-radius: 2px;
   letter-spacing: 0.5px;
   color: #333;
-  /* transition: border-color 0.3s ease; */
+  transition: border-color 0.3s ease;
 }
 
 input::placeholder {
@@ -96,7 +96,7 @@ input::placeholder {
 }
 
 input:focus {
-  border-color: #ffdf80; /* Lighter gold on focus */
+  /* border-color: #ffdf80;  */
   outline: none;
 }
 
